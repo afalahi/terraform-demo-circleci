@@ -21,6 +21,9 @@ jobs:
           ERMETIC_PIPELINE_RUN_TRIGGER: push
           ERMETIC_PIPELINE_RUN_URL: $CIRCLE_BUILD_URL
     steps:
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
       - checkout
       - run:
           name: 'Ermetic Scanner'
