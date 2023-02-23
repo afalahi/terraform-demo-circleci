@@ -24,7 +24,7 @@ jobs:
       - checkout
       - run:
           name: 'Ermetic Scanner'
-          command: 'docker run iac scan terraform'
+          command: 'run iac scan terraform'
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
