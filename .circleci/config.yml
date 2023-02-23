@@ -26,6 +26,9 @@ jobs:
           docker_layer_caching: true
       - checkout
       - run:
+          name: Install Docker client
+          command: apk add docker-cli
+      - run:
           name: 'Ermetic Scanner'
           command: docker run ermetic/scanner iac scan terraform
 
