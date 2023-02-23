@@ -24,7 +24,7 @@ jobs:
       - checkout
       - run:
           name: 'Ermetic Scanner'
-          command: 'run iac scan terraform'
+          command: 'scanner iac scan terraform'
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -39,12 +39,12 @@ workflows:
           context: terraform
           requires:
             - terraform/fmt
-      - terraform/plan:
-          checkout: true
-          context: terraform
-          persist-workspace: true
-          requires:
-            - terraform/validate
+      # - terraform/plan:
+      #     checkout: true
+      #     context: terraform
+      #     persist-workspace: true
+      #     requires:
+      #       - terraform/validate
       - ermetic-scan:
           requires:
             - terraform/plan
