@@ -45,6 +45,4 @@ workflows:
       #     persist-workspace: true
       #     requires:
       #       - terraform/validate
-      - ermetic-scan:
-          requires:
-            - terraform/plan
+      - ermetic-scan
