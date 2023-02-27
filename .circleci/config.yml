@@ -25,7 +25,7 @@ jobs:
           version: 20.10.14
           docker_layer_caching: true
       - checkout
-      - run: echo $ERMETIC_API_TOKEN
+      - run: echo $ERMETIC_API_URL
       - run:
           name: 'Ermetic Scanner'
           command: ermetic iac scan
