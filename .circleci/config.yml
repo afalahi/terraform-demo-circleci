@@ -10,7 +10,6 @@ jobs:
   ermetic-scan:
     docker:
       - image: ghcr.io/ermetic/scanner:latest
-        entrypoint: ['']
     steps:
       - setup_remote_docker:
           version: 20.10.14
