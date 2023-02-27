@@ -30,9 +30,7 @@ jobs:
           command: apk add docker-cli
       - run:
           name: 'Ermetic Scanner'
-          command: |
-            docker pull ghcr.io/ermetic/scanner:latest
-            docker run ermetic/scanner iac scan terraform
+          command: docker run ghcr.io/ermetic/scanner iac scan terraform
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
