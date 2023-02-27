@@ -10,7 +10,7 @@ jobs:
   ermetic-scan:
     docker:
       - image: ghcr.io/ermetic/scanner:latest
-        entrypoint: ['iac scan terraform']
+        entrypoint: ['ermetic iac scan']
         environment:
           ERMETIC_API_TOKEN: $ERMETIC_API_TOKEN
           ERMETIC_API_URL: $ERMETIC_API_URL
