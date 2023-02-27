@@ -10,7 +10,6 @@ jobs:
   ermetic-scan:
     docker:
       - image: ghcr.io/ermetic/scanner:latest
-        entrypoint: ['ermetic iac scan']
         environment:
           ERMETIC_API_TOKEN: $ERMETIC_API_TOKEN
           ERMETIC_API_URL: $ERMETIC_API_URL
@@ -29,6 +28,10 @@ jobs:
       - run:
           name: Install Docker client
           command: apk add docker-cli
+      - run: sh -c env
+      - run:
+          name: 'Ermetic Scanner'
+          command: docker run ghcr.io/ermetic/scanner ermetic iac scan --api-token $ERMETIC_API_TOKEN
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
