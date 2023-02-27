@@ -10,7 +10,7 @@ jobs:
   ermetic-scan:
     docker:
       - image: ghcr.io/ermetic/scanner:latest
-        entrypoint: ['']
+        entrypoint: ['iac scan terraform']
         environment:
           ERMETIC_API_TOKEN: $ERMETIC_API_TOKEN
           ERMETIC_API_URL: $ERMETIC_API_URL
@@ -32,7 +32,7 @@ jobs:
       - run: sh -c env
       - run:
           name: 'Ermetic Scanner'
-          command: docker run ghcr.io/ermetic/scanner iac scan terraform
+          command: docker run ghcr.io/ermetic/scanner
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
