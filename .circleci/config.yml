@@ -13,13 +13,8 @@ jobs:
         environment:
           ERMETIC_API_TOKEN: $ERMETIC_API_TOKEN
           ERMETIC_API_URL: $ERMETIC_API_URL
-          ERMETIC_CODE_BRANCH: ${CIRCLE_BRANCH}
-          ERMETIC_CODE_COMMIT_HASH: $CIRCLE_SHA1
-          ERMETIC_CODE_COMMIT_USER: $CIRCLE_USERNAME
-          ERMETIC_CODE_REPOSITORY_URL: ${CIRCLE_REPOSITORY_URL}
-          ERMETIC_PIPELINE_RUN_ID: ${CIRCLE_WORKFLOW_JOB_ID}
           ERMETIC_PIPELINE_RUN_TRIGGER: push
-          # ERMETIC_PIPELINE_RUN_URL: ${CIRCLE_BUILD_URL}
+          LOGS: TRUE
     steps:
       - run:
           name: 'Install Git'
@@ -29,20 +24,20 @@ jobs:
           docker_layer_caching: true
       - checkout
       - run:
-          name: 'test vars'
+          name: 'Set Env Vars'
           command: |
-            echo ${ERMETIC_PIPELINE_RUN_ID}
             export ERMETIC_PIPELINE_RUN_URL=${CIRCLE_BUILD_URL} >> "$BASH_ENV"
-            echo ${ERMETIC_PIPELINE_RUN_URL}
-            echo ${ERMETIC_CODE_BRANCH}
-            echo ${ERMETIC_API_TOKEN}
+            export ERMETIC_PIPELINE_RUN_ID=${CIRCLE_WORKFLOW_JOB_ID} >> "$BASH_ENV"
+            export ERMETIC_CODE_BRANCH=${CIRCLE_BRANCH} >> "$BASH_ENV"
+            export ERMETIC_CODE_COMMIT_HASH=${CIRCLE_SHA1} >> "$BASH_ENV"
+            export ERMETIC_CODE_COMMIT_USER=${CIRCLE_USERNAME} >> "$BASH_ENV"
+            export ERMETIC_CODE_REPOSITORY_URL=${CIRCLE_REPOSITORY_URL} >> "$BASH_ENV"
+            export ERMETIC_PIPELINE_RUN_ID=${CIRCLE_WORKFLOW_JOB_ID} >> "$BASH_ENV"
             source "$BASH_ENV"
 
       - run:
-          name: 'Ermetic Scanner'
-          command: |
-            echo ${ERMETIC_PIPELINE_RUN_URL}
-            ermetic iac scan
+          name: 'Run Ermetic Scanner'
+          command: ermetic iac scan
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
