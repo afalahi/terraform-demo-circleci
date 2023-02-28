@@ -10,6 +10,16 @@ jobs:
   ermetic-scan:
     docker:
       - image: ghcr.io/ermetic/scanner:latest
+        environment:
+          ERMETIC_API_TOKEN: $ERMETIC_API_TOKEN
+          ERMETIC_API_URL: $ERMETIC_API_URL
+          ERMETIC_CODE_BRANCH: $CIRCLE_BRANCH
+          ERMETIC_CODE_COMMIT_HASH: $CIRCLE_SHA1
+          ERMETIC_CODE_COMMIT_USER: $CIRCLE_USERNAME
+          ERMETIC_CODE_REPOSITORY_URL: ${CIRCLE_REPOSITORY_URL}
+          ERMETIC_PIPELINE_RUN_ID: $CIRCLE_WORKFLOW_JOB_ID
+          ERMETIC_PIPELINE_RUN_TRIGGER: push
+          ERMETIC_PIPELINE_RUN_URL: ${CIRCLE_BUILD_URL}
     steps:
       - run:
           name: 'Install Git'
@@ -18,20 +28,10 @@ jobs:
           version: 20.10.14
           docker_layer_caching: true
       - checkout
-      - run: echo $ERMETIC_PIPELINE_RUN_URL
+      - run: echo $ERMETIC_PIPELINE_RUN_ID
       - run:
           name: 'Ermetic Scanner'
           command: ermetic iac scan
-          environment:
-            ERMETIC_API_TOKEN: $ERMETIC_API_TOKEN
-            ERMETIC_API_URL: $ERMETIC_API_URL
-            ERMETIC_CODE_BRANCH: $CIRCLE_BRANCH
-            ERMETIC_CODE_COMMIT_HASH: $CIRCLE_SHA1
-            ERMETIC_CODE_COMMIT_USER: $CIRCLE_USERNAME
-            ERMETIC_CODE_REPOSITORY_URL: ${CIRCLE_REPOSITORY_URL}
-            ERMETIC_PIPELINE_RUN_ID: $CIRCLE_WORKFLOW_JOB_ID
-            ERMETIC_PIPELINE_RUN_TRIGGER: push
-            ERMETIC_PIPELINE_RUN_URL: ${CIRCLE_BUILD_URL}
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
