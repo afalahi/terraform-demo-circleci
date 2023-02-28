@@ -31,6 +31,9 @@ jobs:
             export ERMETIC_PIPELINE_RUN_ID=${CIRCLE_WORKFLOW_JOB_ID} >> "$BASH_ENV"
             export ERMETIC_PIPELINE_RUN_URL=${CIRCLE_BUILD_URL} >> "$BASH_ENV"
             export ERMETIC_CODE_REPOSITORY_URL=${CIRCLE_REPOSITORY_URL} >> "$BASH_ENV"
+            echo $ERMETIC_PIPELINE_RUN_ID
+            echo $ERMETIC_CODE_COMMIT_USER
+            echo $ERMETIC_CODE_COMMIT_HASH
             source "$BASH_ENV"
             ermetic iac scan
 
