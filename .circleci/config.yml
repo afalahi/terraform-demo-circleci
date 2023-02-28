@@ -11,9 +11,13 @@ jobs:
     docker:
       - image: ghcr.io/ermetic/scanner:latest
         environment:
+          # CircleCi doesn't seem to have support for building pull requests without additional setup
+          # this will be outside the scope of this sample
           ERMETIC_PIPELINE_RUN_TRIGGER: push
     steps:
       - run:
+          # This isn't essential, but CircleCi throws a warrning and falls back to the built-in git
+          # installing git and open-ssh resolves that issue
           name: 'Install Git'
           command: apk add --update openssh-client git
       - setup_remote_docker:
@@ -22,6 +26,8 @@ jobs:
       - checkout
       - run:
           name: 'Ermetic Scanner'
+          # We need to define the env variables in shell because CircleCi can't interpolate variables referencing other variables
+          # ** Note **: We've created project level variables for ERMETIC_API_TOKEN and ERMETIC_API_URL. These will be available to the build by default
           command: |
             export ERMETIC_CODE_BRANCH=${CIRCLE_BRANCH} >> "$BASH_ENV"
             export ERMETIC_CODE_COMMIT_HASH=${CIRCLE_SHA1} >> "$BASH_ENV"
