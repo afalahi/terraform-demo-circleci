@@ -28,7 +28,7 @@ jobs:
           version: 20.10.14
           docker_layer_caching: true
       - checkout
-      - run: echo $ERMETIC_PIPELINE_RUN_ID
+      - run: echo ${ERMETIC_PIPELINE_RUN_ID}
       - run:
           name: 'Ermetic Scanner'
           command: ermetic iac scan
