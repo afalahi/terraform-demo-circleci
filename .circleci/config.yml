@@ -19,7 +19,7 @@ jobs:
           ERMETIC_CODE_REPOSITORY_URL: ${CIRCLE_REPOSITORY_URL}
           ERMETIC_PIPELINE_RUN_ID: ${CIRCLE_WORKFLOW_JOB_ID}
           ERMETIC_PIPELINE_RUN_TRIGGER: push
-          # ERMETIC_PIPELINE_RUN_URL: ${CIRCLE_BUILD_URL}
+          ERMETIC_PIPELINE_RUN_URL: ${CIRCLE_BUILD_URL}
     steps:
       - run:
           name: 'Install Git'
@@ -29,15 +29,15 @@ jobs:
           docker_layer_caching: true
       - checkout
       - run:
-          name: 'test vars'
+          name: 'Set vars'
           command: |
-            echo ${ERMETIC_PIPELINE_RUN_ID}
+            export ERMETIC_CODE_BRANCH=${CIRCLE_BRANCH} >> "$BASH_ENV"
+            export ERMETIC_CODE_COMMIT_HASH=${CIRCLE_SHA1} >> "$BASH_ENV"
+            export ERMETIC_CODE_COMMIT_USER=${CIRCLE_USERNAME} >> "$BASH_ENV"
+            export ERMETIC_PIPELINE_RUN_ID=${CIRCLE_WORKFLOW_JOB_ID} >> "$BASH_ENV"
             export ERMETIC_PIPELINE_RUN_URL=${CIRCLE_BUILD_URL} >> "$BASH_ENV"
-            echo ${ERMETIC_PIPELINE_RUN_URL}
-            echo ${ERMETIC_CODE_BRANCH}
-            echo ${ERMETIC_API_TOKEN}
+            export ERMETIC_CODE_REPOSITORY_URL=${CIRCLE_REPOSITORY_URL} >> "$BASH_ENV"
             source "$BASH_ENV"
-
       - run:
           name: 'Ermetic Scanner'
           command: ermetic iac scan
