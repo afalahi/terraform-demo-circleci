@@ -31,6 +31,8 @@ jobs:
       - run: |
           echo ${ERMETIC_PIPELINE_RUN_ID}
           ERMETIC_PIPELINE_RUN_URL=${CIRCLE_BUILD_URL}
+          echo ERMETIC_PIPELINE_RUN_URL
+
       - run:
           name: 'Ermetic Scanner'
           command: ermetic iac scan
