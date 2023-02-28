@@ -17,7 +17,7 @@ jobs:
           ERMETIC_CODE_COMMIT_HASH: $CIRCLE_SHA1
           ERMETIC_CODE_COMMIT_USER: $CIRCLE_USERNAME
           ERMETIC_CODE_REPOSITORY_URL: ${CIRCLE_REPOSITORY_URL}
-          ERMETIC_PIPELINE_RUN_ID: $CIRCLE_WORKFLOW_JOB_ID
+          ERMETIC_PIPELINE_RUN_ID: ${CIRCLE_WORKFLOW_JOB_ID}
           ERMETIC_PIPELINE_RUN_TRIGGER: push
           ERMETIC_PIPELINE_RUN_URL: ${CIRCLE_BUILD_URL}
     steps:
@@ -30,8 +30,10 @@ jobs:
       - checkout
       - run: |
           echo ${ERMETIC_PIPELINE_RUN_ID}
-          ERMETIC_PIPELINE_RUN_URL=${CIRCLE_BUILD_URL}
-          echo ERMETIC_PIPELINE_RUN_URL
+          $ERMETIC_PIPELINE_RUN_URL=${CIRCLE_BUILD_URL}
+          echo ${ERMETIC_PIPELINE_RUN_URL}
+          echo ${ERMETIC_CODE_BRANCH}
+          echo ${ERMETIC_API_TOKEN}
 
       - run:
           name: 'Ermetic Scanner'
