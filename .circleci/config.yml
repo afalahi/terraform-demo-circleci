@@ -33,8 +33,6 @@ jobs:
             export ERMETIC_CODE_COMMIT_USER=${CIRCLE_USERNAME} >> "$BASH_ENV"
             export ERMETIC_CODE_REPOSITORY_URL=${CIRCLE_REPOSITORY_URL} >> "$BASH_ENV"
             export ERMETIC_PIPELINE_RUN_ID=${CIRCLE_WORKFLOW_JOB_ID} >> "$BASH_ENV"
-            source "$BASH_ENV"
-
       - run:
           name: 'Run Ermetic Scanner'
           command: ermetic iac scan
