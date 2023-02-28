@@ -19,7 +19,7 @@ jobs:
           ERMETIC_CODE_REPOSITORY_URL: ${CIRCLE_REPOSITORY_URL}
           ERMETIC_PIPELINE_RUN_ID: ${CIRCLE_WORKFLOW_JOB_ID}
           ERMETIC_PIPELINE_RUN_TRIGGER: push
-          ERMETIC_PIPELINE_RUN_URL: ${CIRCLE_BUILD_URL}
+          # ERMETIC_PIPELINE_RUN_URL: ${CIRCLE_BUILD_URL}
     steps:
       - run:
           name: 'Install Git'
@@ -32,7 +32,7 @@ jobs:
           name: 'test vars'
           command: |
             echo ${ERMETIC_PIPELINE_RUN_ID}
-            echo 'export ERMETIC_PIPELINE_RUN_URL=${CIRCLE_BUILD_URL}' >> "$BASH_ENV"
+            echo 'export ERMETIC_PIPELINE_RUN_URL=$(cat ${CIRCLE_BUILD_URL})' >> "$BASH_ENV"
             echo ${ERMETIC_PIPELINE_RUN_URL}
             echo ${ERMETIC_CODE_BRANCH}
             echo ${ERMETIC_API_TOKEN}
