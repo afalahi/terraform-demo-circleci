@@ -32,14 +32,17 @@ jobs:
           name: 'test vars'
           command: |
             echo ${ERMETIC_PIPELINE_RUN_ID}
-            echo 'export ERMETIC_PIPELINE_RUN_URL=$(cat ${CIRCLE_BUILD_URL})' >> "$BASH_ENV"
+            export ERMETIC_PIPELINE_RUN_URL=${CIRCLE_BUILD_URL} >> "$BASH_ENV"
             echo ${ERMETIC_PIPELINE_RUN_URL}
             echo ${ERMETIC_CODE_BRANCH}
             echo ${ERMETIC_API_TOKEN}
+            source "$BASH_ENV"
 
       - run:
           name: 'Ermetic Scanner'
-          command: ermetic iac scan
+          command: |
+            echo ${ERMETIC_PIPELINE_RUN_URL}
+            ermetic iac scan
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
