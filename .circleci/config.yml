@@ -28,12 +28,14 @@ jobs:
           version: 20.10.14
           docker_layer_caching: true
       - checkout
-      - run: |
-          echo ${ERMETIC_PIPELINE_RUN_ID}
-          $ERMETIC_PIPELINE_RUN_URL=${CIRCLE_BUILD_URL}
-          echo ${ERMETIC_PIPELINE_RUN_URL}
-          echo ${ERMETIC_CODE_BRANCH}
-          echo ${ERMETIC_API_TOKEN}
+      - run:
+          name: 'test vars'
+          command: |
+            echo ${ERMETIC_PIPELINE_RUN_ID}
+            ERMETIC_PIPELINE_RUN_URL=${CIRCLE_BUILD_URL}
+            echo ${ERMETIC_PIPELINE_RUN_URL}
+            echo ${ERMETIC_CODE_BRANCH}
+            echo ${ERMETIC_API_TOKEN}
 
       - run:
           name: 'Ermetic Scanner'
