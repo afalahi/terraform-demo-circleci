@@ -23,11 +23,11 @@ jobs:
     steps:
       - run:
           name: 'Install Git'
-          command: apk add git
-      - checkout
+          command: apk add --update openssh-client git
       - setup_remote_docker:
           version: 20.10.14
           docker_layer_caching: true
+      - checkout
       - run: echo $CIRCLE_WORKING_DIRECTORY
       - run:
           name: 'Ermetic Scanner'
