@@ -34,6 +34,7 @@ jobs:
             export ERMETIC_CODE_COMMIT_USER=${CIRCLE_USERNAME}
             export ERMETIC_PIPELINE_RUN_ID=<< pipeline.id >>
             # export ERMETIC_PIPELINE_RUN_ID=${CIRCLE_BUILD_NUM}
+            # commenting for trigger
             export ERMETIC_PIPELINE_RUN_URL=${CIRCLE_BUILD_URL}
             export ERMETIC_CODE_REPOSITORY_URL=${CIRCLE_REPOSITORY_URL}
             echo $ERMETIC_API_TOKEN
