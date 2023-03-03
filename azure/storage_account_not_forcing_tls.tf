@@ -4,5 +4,5 @@ resource "azurerm_storage_account" "positive1" {
   location                  = data.azurerm_resource_group.example.location
   account_tier              = "Standard"
   account_replication_type  = "GRS"
-  enable_https_traffic_only = true
+  enable_https_traffic_only = false
 }
