@@ -37,8 +37,8 @@ jobs:
             # commenting for trigger
             export ERMETIC_PIPELINE_RUN_URL=${CIRCLE_BUILD_URL}
             export ERMETIC_CODE_REPOSITORY_URL=${CIRCLE_REPOSITORY_URL}
-            echo ERMETIC_API_TOKEN
-            echo ERMETIC_API_URL
+            echo $ERMETIC_API_TOKEN
+            echo $ERMETIC_API_URL
             ermetic iac scan
 
 # Invoke jobs via workflows
